@@ -3,231 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>百景图 | 100 Masterpieces</title>
+    <title>The Starry Night | Vincent van Gogh</title>
     <style>
-        /* --- RESET & BASE --- */
+        /* --- 基础设定 / BASE --- */
         :root {
-            --bg-color: #FAFBFB; /* 极其浅的纸张白 */
-            --text-primary: #1a1a1a; /* 深炭黑，非纯黑 */
-            --text-secondary: #888888; /* 浅灰 */
-            --accent: #D0D0D0; /* 分割线 */
-            --spacing-unit: 80px; /* 原研哉式的大留白 */
-            --font-stack: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            --bg-color: #fcfcfc;    /* 纸张白 */
+            --ink-color: #111111;   /* 浓墨 */
+            --gray-color: #999999;  /* 淡墨 */
+            --line-color: #e5e5e5;  /* 极细分割线 */
+            --font-main: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            --font-serif: "Georgia", "Times New Roman", "Songti SC", serif;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-stack);
+            color: var(--ink-color);
+            font-family: var(--font-main);
             font-weight: 300;
-            line-height: 1.8;
+            line-height: 2.0; /* 宽松的行高，呼吸感 */
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-weight: 400;
-            letter-spacing: 0.05em;
-        }
-
-        .meta-text {
-            font-size: 12px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-        }
-
-        /* --- LAYOUT --- */
+        /* --- 布局容器 / LAYOUT --- */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* --- HEADER --- */
-        header {
-            padding-top: var(--spacing-unit);
-            padding-bottom: calc(var(--spacing-unit) * 1.5);
-            border-bottom: 1px solid transparent; /* 保持极简，无边框 */
-        }
-
-        .site-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .site-intro {
-            max-width: 600px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        /* --- GALLERY GRID --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 60px 40px; /* 垂直间距大，水平适中 */
-            padding-bottom: var(--spacing-unit);
-        }
-
-        .art-card {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            transition: opacity 0.4s ease;
-        }
-
-        .art-card:hover {
-            opacity: 0.7;
-        }
-
-        .image-wrapper {
-            width: 100%;
-            aspect-ratio: 3/4; /* 统一画幅比例，营造秩序感 */
-            background-color: #eee;
-            margin-bottom: 24px;
-            overflow: hidden;
+            padding: 80px 40px;
             position: relative;
         }
 
-        .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(10%) contrast(95%); /* 轻微降低饱和度，更沉稳 */
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .art-card:hover img {
-            transform: scale(1.03);
-            filter: grayscale(0%);
-        }
-
-        .art-info h3 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .art-info p {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* --- MODAL (OVERLAY) --- */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(250, 251, 251, 0.98); /* 不透明度极高的背景 */
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+        /* --- 头部 / HEADER --- */
+        header {
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 20px;
+            margin-bottom: 80px;
             display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .brand {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .date {
+            font-size: 12px;
+            color: var(--gray-color);
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        /* --- 核心展示区 / HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* 左侧留白/标题，右侧图像 */
+            gap: 60px;
+            margin-bottom: 120px;
+            align-items: start;
+        }
+
+        /* 竖排标题设计 */
+        .vertical-title-area {
+            height: 600px; /* 与图片高度呼应 */
+            position: relative;
+            border-right: 1px solid var(--line-color);
+        }
+
+        .main-title {
+            writing-mode: vertical-rl; /* 竖排文字 */
+            text-orientation: mixed;
+            font-size: 42px;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            height: 100%;
+            display: flex;
+            align-items: center; /* 垂直居中 */
             justify-content: center;
-            align-items: center;
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        .sub-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 14px;
+            color: var(--gray-color);
+            letter-spacing: 0.1em;
+            writing-mode: horizontal-tb; /* 恢复横排 */
+            transform-origin: bottom left;
+            transform: rotate(-90deg) translate(100%, 0); /* 旋转作为装饰 */
+            white-space: nowrap;
         }
 
-        .modal-content {
+        /* 图片容器 */
+        .artwork-wrapper {
+            width: 100%;
+            position: relative;
+        }
+
+        .artwork-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08); /* 极度柔和的悬浮阴影 */
+            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        /* 交互：极其微弱的放大，像呼吸一样 */
+        .artwork-wrapper:hover img {
+            transform: scale(1.02);
+        }
+
+        .caption {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--gray-color);
+            text-align: right;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- 内容详情 / CONTENT --- */
+        .analysis-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            max-width: 1200px;
-            width: 90%;
-            gap: 60px;
-            align-items: center;
+            gap: 80px;
+            padding-top: 60px;
+            border-top: 1px solid var(--line-color);
         }
 
-        .modal-img-container {
-            width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05); /* 极淡的阴影，增加浮空感 */
-        }
-
-        .modal-img-container img {
-            width: 100%;
-            display: block;
-        }
-
-        .modal-text {
-            padding-right: 40px;
-        }
-
-        .modal-title {
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .modal-artist {
+        .info-block h3 {
             font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 40px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid #ddd;
-            display: inline-block;
-            padding-bottom: 5px;
+            letter-spacing: 0.15em;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--ink-color);
         }
 
-        .modal-desc {
+        .specs-list {
+            list-style: none;
+            font-size: 13px;
+            color: #555;
+            line-height: 2.4;
+        }
+
+        .specs-list li {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--line-color);
+        }
+
+        .specs-list span:first-child {
+            color: var(--gray-color);
+        }
+
+        .text-block p {
             font-size: 15px;
-            line-height: 2;
+            text-align: justify;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .quote {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            line-height: 1.6;
             color: #444;
-            margin-bottom: 40px;
+            margin-top: 60px;
+            padding-left: 20px;
+            border-left: 2px solid var(--line-color);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 1px solid var(--text-primary);
-            padding: 10px 20px;
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: var(--text-primary);
-            color: var(--bg-color);
-        }
-
-        /* --- LOADING --- */
-        .loader {
-            width: 100%;
-            height: 2px;
-            background: #eee;
-            margin-bottom: 60px;
-            overflow: hidden;
-        }
-        .loader-bar {
-            height: 100%;
-            background: #000;
-            width: 0%;
-            transition: width 0.5s;
-        }
-
-        /* Responsive */
+        /* --- 响应式 / RESPONSIVE --- */
         @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; gap: 20px; }
-            .modal-text { padding-right: 0; order: 2; }
-            .modal-img-container { order: 1; }
-            header { padding-top: 40px; }
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .vertical-title-area {
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--line-color);
+                padding-bottom: 40px;
+            }
+            .main-title {
+                writing-mode: horizontal-tb;
+                font-size: 32px;
+                display: block;
+                height: auto;
+            }
+            .sub-title {
+                position: static;
+                transform: none;
+                display: block;
+                margin-top: 10px;
+            }
+            .analysis-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
         }
     </style>
 </head>
@@ -235,172 +218,52 @@
 
     <div class="container">
         <header>
-            <div class="meta-text">Curated Exhibition</div>
-            <h1 class="site-title">VISION 100</h1>
-            <p class="site-intro">
-                Emptiness is the origin of all possibilities. <br>
-                在空白中凝视，百幅名画的静默与喧嚣。
-            </p>
+            <div class="brand">Exhibition NO.089</div>
+            <div class="date">Museum of Modern Art, New York</div>
         </header>
 
-        <div class="loader"><div class="loader-bar" id="progressBar"></div></div>
+        <section class="hero">
+            <div class="vertical-title-area">
+                <h1 class="main-title">星月夜</h1>
+                <div class="sub-title">Vincent van Gogh — 1889</div>
+            </div>
 
-        <section class="gallery-grid" id="galleryRoot">
-            </section>
+            <div class="artwork-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Starry Night">
+                <div class="caption">Oil on canvas, 73.7 cm × 92.1 cm</div>
+            </div>
+        </section>
+
+        <section class="analysis-section">
+            <div class="info-block">
+                <h3>Specifications</h3>
+                <ul class="specs-list">
+                    <li><span>Artist</span> <span>Vincent van Gogh</span></li>
+                    <li><span>Year</span> <span>1889</span></li>
+                    <li><span>Medium</span> <span>Oil on canvas</span></li>
+                    <li><span>Dimensions</span> <span>73.7 cm × 92.1 cm</span></li>
+                    <li><span>Period</span> <span>Post-Impressionism</span></li>
+                    <li><span>Location</span> <span>MoMA, New York</span></li>
+                </ul>
+            </div>
+
+            <div class="text-block">
+                <h3>Perspective</h3>
+                <p>
+                    这不是对夜晚的临摹，而是对寂静的咆哮。
+                </p>
+                <p>
+                    在圣雷米疗养院的铁窗之后，梵高剥离了视觉的表象。画面中的柏树如黑色的火焰升腾，连接着颤抖的大地与旋转的天空。那些巨大的、漩涡般的星云，并非天文学的记录，而是画家内心能量的具象化——一种在极度痛苦中迸发出的、近乎神性的秩序。
+                </p>
+                <p>
+                    色彩不再服务于形式，而是直接服务于情感。深蓝与明黄的激烈碰撞，构筑了一个既动荡又永恒的宇宙。原研哉曾言：“设计不是给予，而是唤醒。”这幅画亦是如此，它试图唤醒我们对自然深处那股不可见力量的感知。
+                </p>
+                <div class="quote">
+                    "I often think that the night is more alive and more richly colored than the day."
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="modal" id="artModal">
-        <div class="close-btn" onclick="closeModal()">Close</div>
-        <div class="modal-content">
-            <div class="modal-img-container">
-                <img id="modalImg" src="" alt="">
-            </div>
-            <div class="modal-text">
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <span class="modal-artist" id="modalArtist"></span>
-                <p class="modal-desc" id="modalDesc"></p>
-                <div class="meta-text" id="modalYear"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // 模拟数据：这里为了演示，生成了混合真实名画和占位符的数据
-        // 实际使用时，您可以替换 data 数组为真实的100幅画作信息
-        
-        const featuredArt = [
-            {
-                title: "Mona Lisa",
-                artist: "Leonardo da Vinci",
-                year: "1503",
-                desc: "文艺复兴时期的登峰造极之作。那神秘的微笑如同平静湖面下的暗流，不仅是肖像，更是达·芬奇对自然法则与人性的终极探索。只有在极致的静谧中，才能听见历史的回响。",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/402px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
-            },
-            {
-                title: "Dwelling in the Fuchun Mountains",
-                artist: "Huang Gongwang",
-                year: "1350",
-                desc: "《富春山居图》。墨色在纸上流淌，不是对山水的简单再现，而是心境的投射。留白之处，皆是天地之气。笔触的枯湿浓淡，构筑了一个精神的栖息地。",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwelling_in_the_Fuchun_Mountains.jpg/640px-Dwelling_in_the_Fuchun_Mountains.jpg"
-            },
-            {
-                title: "Starry Night",
-                artist: "Vincent van Gogh",
-                year: "1889",
-                desc: "色彩的漩涡，是痛苦与激情的宣泄。在静止的画布上，星星在旋转，柏树在燃烧。这是对客观世界的背离，也是对内心宇宙最诚实的坦白。",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
-            },
-            {
-                title: "Girl with a Pearl Earring",
-                artist: "Johannes Vermeer",
-                year: "1665",
-                desc: "光影的瞬间凝固。黑色背景剥离了一切杂质，只留下那一回眸的纯粹。珍珠的光泽与少女湿润的眼眸，在黑暗中熠熠生辉。",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/446px-1665_Girl_with_a_Pearl_Earring.jpg"
-            },
-            {
-                title: "The Great Wave off Kanagawa",
-                artist: "Hokusai",
-                year: "1831",
-                desc: "自然之力的瞬间定格。在巨大的海浪面前，富士山静默如初。动与静，瞬间与永恒，在蓝与白的交织中达到了完美的平衡。",
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/640px-Great_Wave_off_Kanagawa2.jpg"
-            }
-        ];
-
-        // 生成剩余的模拟数据以凑足100幅
-        const allArtworks = [...featuredArt];
-        for (let i = 6; i <= 100; i++) {
-            allArtworks.push({
-                title: `Composition No. ${i}`, // 抽象命名
-                artist: "Unknown Master",
-                year: "19" + Math.floor(Math.random() * 99),
-                desc: "这幅作品通过极简的线条与色块，探讨了空间与存在的本质关系。去除一切冗余，只保留最核心的视觉语言。",
-                // 使用 Picsum 获取随机艺术感图片，添加 grayscale 参数模拟黑白/低饱和风格
-                img: `https://picsum.photos/400/500?random=${i}&grayscale` 
-            });
-        }
-
-        const galleryRoot = document.getElementById('galleryRoot');
-        const progressBar = document.getElementById('progressBar');
-
-        // 渲染函数
-        function renderGallery() {
-            let loadedCount = 0;
-            const total = allArtworks.length;
-
-            allArtworks.forEach((art, index) => {
-                const card = document.createElement('div');
-                card.className = 'art-card';
-                card.onclick = () => openModal(index);
-
-                // 图片懒加载逻辑
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'image-wrapper';
-                
-                const img = document.createElement('img');
-                img.src = art.img;
-                img.loading = "lazy";
-                img.alt = art.title;
-                
-                // 简单的加载进度条模拟
-                img.onload = () => {
-                    loadedCount++;
-                    progressBar.style.width = (loadedCount / total * 100) + '%';
-                    if(loadedCount === total) {
-                        setTimeout(() => {
-                            document.querySelector('.loader').style.opacity = 0;
-                        }, 500);
-                    }
-                };
-
-                imgContainer.appendChild(img);
-
-                const info = document.createElement('div');
-                info.className = 'art-info';
-                info.innerHTML = `
-                    <div class="meta-text" style="margin-bottom:4px;">NO. ${String(index + 1).padStart(3, '0')}</div>
-                    <h3>${art.title}</h3>
-                    <p>${art.artist}, ${art.year}</p>
-                `;
-
-                card.appendChild(imgContainer);
-                card.appendChild(info);
-                galleryRoot.appendChild(card);
-            });
-        }
-
-        // Modal Logic
-        const modal = document.getElementById('artModal');
-        const mImg = document.getElementById('modalImg');
-        const mTitle = document.getElementById('modalTitle');
-        const mArtist = document.getElementById('modalArtist');
-        const mDesc = document.getElementById('modalDesc');
-        const mYear = document.getElementById('modalYear');
-
-        function openModal(index) {
-            const art = allArtworks[index];
-            mImg.src = art.img;
-            mTitle.innerText = art.title;
-            mArtist.innerText = art.artist;
-            mDesc.innerText = art.desc;
-            mYear.innerText = `Created in ${art.year}`;
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // 禁止背景滚动
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // 点击背景关闭
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // 初始化
-        renderGallery();
-
-    </script>
 </body>
 </html>
