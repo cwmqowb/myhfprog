@@ -1,722 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>百景图 | 100 Masterpieces</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* --- RESET & BASE --- */
+        :root {
+            --bg-color: #FAFBFB; /* 极其浅的纸张白 */
+            --text-primary: #1a1a1a; /* 深炭黑，非纯黑 */
+            --text-secondary: #888888; /* 浅灰 */
+            --accent: #D0D0D0; /* 分割线 */
+            --spacing-unit: 80px; /* 原研哉式的大留白 */
+            --font-stack: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
         }
 
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-stack);
+            font-weight: 300;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 400;
+            letter-spacing: 0.05em;
         }
 
+        .meta-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* --- LAYOUT --- */
         .container {
-            width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 40px;
         }
 
-        .nav-container {
+        /* --- HEADER --- */
+        header {
+            padding-top: var(--spacing-unit);
+            padding-bottom: calc(var(--spacing-unit) * 1.5);
+            border-bottom: 1px solid transparent; /* 保持极简，无边框 */
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .site-intro {
+            max-width: 600px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 60px 40px; /* 垂直间距大，水平适中 */
+            padding-bottom: var(--spacing-unit);
+        }
+
+        .art-card {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
+            flex-direction: column;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.4s ease;
         }
 
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        .art-card:hover {
+            opacity: 0.7;
         }
 
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
+        .image-wrapper {
             width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
+            aspect-ratio: 3/4; /* 统一画幅比例，营造秩序感 */
+            background-color: #eee;
+            margin-bottom: 24px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            position: relative;
         }
 
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
+        .image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            filter: grayscale(10%) contrast(95%); /* 轻微降低饱和度，更沉稳 */
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
+        .art-card:hover img {
+            transform: scale(1.03);
+            filter: grayscale(0%);
         }
 
-        .initiative-content {
-            padding: 1.5rem;
+        .art-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
         }
 
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
+        .art-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
         }
 
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
+        /* --- MODAL (OVERLAY) --- */
+        .modal {
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
+            width: 100vw;
+            height: 100vh;
+            background: rgba(250, 251, 251, 0.98); /* 不透明度极高的背景 */
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
             display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            align-items: center;
         }
 
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .modal-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1200px;
+            width: 90%;
+            gap: 60px;
+            align-items: center;
         }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
+        .modal-img-container {
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05); /* 极淡的阴影，增加浮空感 */
+        }
+
+        .modal-img-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .modal-text {
+            padding-right: 40px;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .modal-artist {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 40px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid #ddd;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .modal-desc {
+            font-size: 15px;
+            line-height: 2;
+            color: #444;
+            margin-bottom: 40px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 14px;
             cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--text-primary);
+            padding: 10px 20px;
+            transition: all 0.3s;
         }
 
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .close-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-color);
         }
 
+        /* --- LOADING --- */
+        .loader {
+            width: 100%;
+            height: 2px;
+            background: #eee;
+            margin-bottom: 60px;
+            overflow: hidden;
+        }
+        .loader-bar {
+            height: 100%;
+            background: #000;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
+            .modal-content { grid-template-columns: 1fr; gap: 20px; }
+            .modal-text { padding-right: 0; order: 2; }
+            .modal-img-container { order: 1; }
+            header { padding-top: 40px; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
-        </div>
-    </section>
+    <div class="container">
+        <header>
+            <div class="meta-text">Curated Exhibition</div>
+            <h1 class="site-title">VISION 100</h1>
+            <p class="site-intro">
+                Emptiness is the origin of all possibilities. <br>
+                在空白中凝视，百幅名画的静默与喧嚣。
+            </p>
+        </header>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <div class="loader"><div class="loader-bar" id="progressBar"></div></div>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section class="gallery-grid" id="galleryRoot">
+            </section>
+    </div>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
+    <div class="modal" id="artModal">
+        <div class="close-btn" onclick="closeModal()">Close</div>
+        <div class="modal-content">
+            <div class="modal-img-container">
+                <img id="modalImg" src="" alt="">
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
+            <div class="modal-text">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <span class="modal-artist" id="modalArtist"></span>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="meta-text" id="modalYear"></div>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+        // 模拟数据：这里为了演示，生成了混合真实名画和占位符的数据
+        // 实际使用时，您可以替换 data 数组为真实的100幅画作信息
+        
+        const featuredArt = [
+            {
+                title: "Mona Lisa",
+                artist: "Leonardo da Vinci",
+                year: "1503",
+                desc: "文艺复兴时期的登峰造极之作。那神秘的微笑如同平静湖面下的暗流，不仅是肖像，更是达·芬奇对自然法则与人性的终极探索。只有在极致的静谧中，才能听见历史的回响。",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/402px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+            },
+            {
+                title: "Dwelling in the Fuchun Mountains",
+                artist: "Huang Gongwang",
+                year: "1350",
+                desc: "《富春山居图》。墨色在纸上流淌，不是对山水的简单再现，而是心境的投射。留白之处，皆是天地之气。笔触的枯湿浓淡，构筑了一个精神的栖息地。",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwelling_in_the_Fuchun_Mountains.jpg/640px-Dwelling_in_the_Fuchun_Mountains.jpg"
+            },
+            {
+                title: "Starry Night",
+                artist: "Vincent van Gogh",
+                year: "1889",
+                desc: "色彩的漩涡，是痛苦与激情的宣泄。在静止的画布上，星星在旋转，柏树在燃烧。这是对客观世界的背离，也是对内心宇宙最诚实的坦白。",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+            },
+            {
+                title: "Girl with a Pearl Earring",
+                artist: "Johannes Vermeer",
+                year: "1665",
+                desc: "光影的瞬间凝固。黑色背景剥离了一切杂质，只留下那一回眸的纯粹。珍珠的光泽与少女湿润的眼眸，在黑暗中熠熠生辉。",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/446px-1665_Girl_with_a_Pearl_Earring.jpg"
+            },
+            {
+                title: "The Great Wave off Kanagawa",
+                artist: "Hokusai",
+                year: "1831",
+                desc: "自然之力的瞬间定格。在巨大的海浪面前，富士山静默如初。动与静，瞬间与永恒，在蓝与白的交织中达到了完美的平衡。",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/640px-Great_Wave_off_Kanagawa2.jpg"
+            }
+        ];
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
+        // 生成剩余的模拟数据以凑足100幅
+        const allArtworks = [...featuredArt];
+        for (let i = 6; i <= 100; i++) {
+            allArtworks.push({
+                title: `Composition No. ${i}`, // 抽象命名
+                artist: "Unknown Master",
+                year: "19" + Math.floor(Math.random() * 99),
+                desc: "这幅作品通过极简的线条与色块，探讨了空间与存在的本质关系。去除一切冗余，只保留最核心的视觉语言。",
+                // 使用 Picsum 获取随机艺术感图片，添加 grayscale 参数模拟黑白/低饱和风格
+                img: `https://picsum.photos/400/500?random=${i}&grayscale` 
             });
         }
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+        const galleryRoot = document.getElementById('galleryRoot');
+        const progressBar = document.getElementById('progressBar');
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        // 渲染函数
+        function renderGallery() {
+            let loadedCount = 0;
+            const total = allArtworks.length;
+
+            allArtworks.forEach((art, index) => {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.onclick = () => openModal(index);
+
+                // 图片懒加载逻辑
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-wrapper';
                 
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                const img = document.createElement('img');
+                img.src = art.img;
+                img.loading = "lazy";
+                img.alt = art.title;
                 
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
+                // 简单的加载进度条模拟
+                img.onload = () => {
+                    loadedCount++;
+                    progressBar.style.width = (loadedCount / total * 100) + '%';
+                    if(loadedCount === total) {
+                        setTimeout(() => {
+                            document.querySelector('.loader').style.opacity = 0;
+                        }, 500);
+                    }
+                };
+
+                imgContainer.appendChild(img);
+
+                const info = document.createElement('div');
+                info.className = 'art-info';
+                info.innerHTML = `
+                    <div class="meta-text" style="margin-bottom:4px;">NO. ${String(index + 1).padStart(3, '0')}</div>
+                    <h3>${art.title}</h3>
+                    <p>${art.artist}, ${art.year}</p>
+                `;
+
+                card.appendChild(imgContainer);
+                card.appendChild(info);
+                galleryRoot.appendChild(card);
             });
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('artModal');
+        const mImg = document.getElementById('modalImg');
+        const mTitle = document.getElementById('modalTitle');
+        const mArtist = document.getElementById('modalArtist');
+        const mDesc = document.getElementById('modalDesc');
+        const mYear = document.getElementById('modalYear');
+
+        function openModal(index) {
+            const art = allArtworks[index];
+            mImg.src = art.img;
+            mTitle.innerText = art.title;
+            mArtist.innerText = art.artist;
+            mDesc.innerText = art.desc;
+            mYear.innerText = `Created in ${art.year}`;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
         });
+
+        // 初始化
+        renderGallery();
+
     </script>
 </body>
-
 </html>
